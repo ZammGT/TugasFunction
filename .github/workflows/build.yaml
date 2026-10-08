@@ -1,0 +1,23 @@
+name: Build C++ EXE
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Build
+        run: |
+          g++ -std=c++17 -O2 -Wall -Wextra main.cpp -o app.exe
+
+      - name: Upload EXE
+        uses: actions/upload-artifact@v4
+        with:
+          name: cpp-windows-build
+          path: app.exe
